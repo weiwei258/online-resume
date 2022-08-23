@@ -4,6 +4,7 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import router from '@/router'
 import piniaPersist from 'pinia-plugin-persist'
+import '@/element'
 
 //使用pinia
 const pinia = createPinia()
