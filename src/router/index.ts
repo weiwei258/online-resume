@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationN
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: '/home',
@@ -11,7 +11,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       type: 'home'
     },
-    component: () => import('@/views/home')
+    component: () => import('../views/home')
   },
   {
     path: '/login',
@@ -19,12 +19,36 @@ const routes: RouteRecordRaw[] = [
     meta: {
       type: 'login'
     },
-    component: () => import('@/views/login')
+    component: () => import('../views/login')
+  },
+  {
+    path: '/square',
+    name: 'square',
+    meta: {
+      type: 'square'
+    },
+    component: () => import('../views/square')
+  },
+  {
+    path: '/mine',
+    name: 'mine',
+    meta: {
+      type: 'mine'
+    },
+    component: () => import('../views/mine')
+  },
+  {
+    path: '/editor',
+    name: 'editor',
+    meta: {
+      type: 'editor'
+    },
+    component: () => import('../views/editor')
   },
   {
     path: '/:pathMatch(.*)*', // 注意此处 404页面匹配规则和以前不相同，得采用这种配置方式才行
     name: '404',
-    component: () => import('@/views/404')
+    component: () => import('../views/404')
   }
 ]
 
@@ -34,20 +58,20 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-  // 获取userToken，根据业务场景可由localStorage也可由cookie中获取
-  const user = localStorage.getItem('user')
-  // 路由守卫判断
-  if (to.meta.type === 'login' && user) {
-    next({ name: 'home' })
-    return
-  }
+// router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+//   // 获取userToken，根据业务场景可由localStorage也可由cookie中获取
+//   const user = localStorage.getItem('user')
+//   // 路由守卫判断
+//   if (to.meta.type === 'login' && user) {
+//     next({ name: 'home' })
+//     return
+//   }
 
-  if (to.meta.type === 'home' && !user) {
-    next({ name: 'login' })
-    return
-  }
-  next()
-})
+//   if (to.meta.type === 'home' && !user) {
+//     next({ name: 'login' })
+//     return
+//   }
+//   next()
+// })
 
 export default router

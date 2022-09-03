@@ -2,13 +2,9 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
-    message: String
+    message: String,
   },
   setup(props) {
-    return () => (
-      <div>
-        login
-      </div>
-    )
-  }
+    return () => <div>404</div>
+  },
 })
