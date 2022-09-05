@@ -1,16 +1,39 @@
 /**
  *按需引入的组件
  */
-import { ElMessage, ElMessageBox, ElContainer } from 'element-plus'
+import {
+  ElMessage,
+  ElMessageBox,
+  ElContainer,
+  ElButton,
+  ElInput,
+  ElIcon,
+} from 'element-plus'
+import { Edit, ArrowLeft } from '@element-plus/icons-vue'
+
 /**
  * 按需导入的存在一个数组
- */ElContainer
-const elementPlus = [ElMessage, ElMessageBox, ]
-
+ */
+const elementPlus = [
+  ElMessage,
+  ElMessageBox,
+  ElButton,
+  ElContainer,
+  ElInput,
+  ArrowLeft,
+  ElIcon,
+]
+const icons = [Edit]
+console.log(icons)
 export default {
   install: (app: any) => {
-    elementPlus.forEach((element) => {
-      app.component(element.name, element)
+    elementPlus.forEach((component) => {
+      app.component(component.name, component)
     })
-  }
+
+    // 注册图标
+    icons.forEach((icon) => {
+      app.component(icon.name, icon)
+    })
+  },
 }

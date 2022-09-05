@@ -5,7 +5,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
+import {
+  createStyleImportPlugin,
+  ElementPlusResolve,
+} from 'vite-plugin-style-import'
 
 // https://vitejs.dev/config/
 export default ({ mode }) =>
@@ -14,10 +17,17 @@ export default ({ mode }) =>
       vue(),
       vueJsx(),
       AutoImport({
-        resolvers: [ElementPlusResolver()]
+        imports: ['vue'],
+        resolvers: [ElementPlusResolver()],
+        eslintrc: {
+          // 防止eslint报错 添加全局变量
+          enabled: true,
+          filepath: './.eslintrc-auto-import.json',
+          globalsPropValue: true,
+        },
       }),
       Components({
-        resolvers: [ElementPlusResolver()]
+        resolvers: [ElementPlusResolver()],
       }),
       createStyleImportPlugin({
         resolves: [ElementPlusResolve()],
@@ -28,18 +38,23 @@ export default ({ mode }) =>
             ensureStyleFile: true,
             resolveStyle: (name) => {
               return `element-plus/lib/theme-chalk/${name}.css`
-            }
-          }
-        ]
-      })
+            },
+          },
+        ],
+      }),
     ],
     base: mode === 'development' ? '/' : './', //此时把环境打包路径也配置好，避免生产环境打包出现白屏
     server: {
-      port: 8888
+      port: 8888,
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, '/src')
-      }
-    }
+        '@': resolve(__dirname, '/src'),
+      },
+    },
+    css: {
+      modules: {
+        localsConvention: 'camelCaseOnly',
+      },
+    },
   })

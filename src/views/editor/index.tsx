@@ -1,95 +1,78 @@
 import { defineComponent, ref, computed } from 'vue'
-import Codemirror from 'codemirror-editor-vue3';
-import { debounce } from 'lodash';
-import MarkdownIt from 'markdown-it';
-import MarkdownItContainer from 'markdown-it-container'
-// theme
-import 'codemirror/theme/dracula.css';
-import 'codemirror/mode/markdown/markdown.js';
+import Codemirror from 'codemirror-editor-vue3'
+import { debounce } from 'lodash'
+import markdownIt, { cmOptions } from './markdown'
 import { md as initalMarkDowmStr } from './md'
-const cmOptions = {
-  mode: 'markdown', // Language mode
-  // theme: 'dracula', // Theme
-  lineNumbers: true, // Show line number
-  smartIndent: true, // Smart indent
-  indentUnit: 4, // The smart indent unit is 2 spaces in length
-  foldGutter: true, // Code folding
-  matchBrackets: true,
-  autoCloseBrackets: true,
-  styleActiveLine: true, // Display the style of the selected row
-};
-
-const markdownIt = new MarkdownIt();
-markdownIt
-  .use(MarkdownItContainer, 'left', {
-    validate: function (params: any) {
-      return params.trim().match(/^left$/);
-    },
-    render: function (tokens: any, idx: any) {
-      if (tokens[idx].nesting === 1) {
-        return '<div class="left">';
-      } else {
-        return '</div>\n';
-      }
-    }
-  })
-  .use(MarkdownItContainer, 'right', {
-    validate: function (params: any) {
-      return params.trim().match(/^right$/);
-    },
-    render: function (tokens: any, idx: any) {
-      if (tokens[idx].nesting === 1) {
-        return '<div class="right">';
-      } else {
-        return '</div>\n';
-      }
-    }
-  })
-
+import styles from './index.module.less'
 
 export default defineComponent({
   props: {
     message: String,
   },
   setup(props) {
-    const md = ref(initalMarkDowmStr);
+    const md = ref(initalMarkDowmStr)
     const onChange = (val: string) => {
-      md.value = val;
-    };
+      md.value = val
+    }
 
     const html = computed(() => {
       if (md.value) {
-        const token = markdownIt.parse(md.value).map(token => {
-
+        const token = markdownIt.parse(md.value).map((token) => {
           return {
             ...token,
-            attrs: [
-              [
-                "theme",
-                "red-theme"
-              ],
-            ]
+            attrs: [['theme', 'red-theme']],
           }
         })
-        return markdownIt.renderer.render(token);
+        return markdownIt.renderer.render(token)
       }
       return ''
-    });
+    })
+
+    const resumeName = ref('')
 
     return () => (
-      <div style={{ display: 'flex' }}>
-        <Codemirror
-          style={{ width: '50%', marginRight: '20px' }}
-          value={md.value}
-          options={cmOptions}
-          border
-          placeholder="test placeholder"
-          height="1500"
-          width="100%"
-          onChange={debounce(onChange, 300)}
-        />
-        <div v-html={html.value} style={{ width: '50%' }}></div>
+      <div class={styles.editorPage}>
+        <header class={styles.header}>
+          <div class={styles.left}>
+            <div class={styles.backIcon}>
+              <el-icon>
+                <arrow-left />
+              </el-icon>
+            </div>
+            <el-input
+              v-model={resumeName.value}
+              placeholder="input resume name"
+              style={{ maxWidth: '200px' }}
+            />
+            <nav>
+              <span>首页</span>
+              <span>编辑模式</span>
+              <span>选择主题</span>
+              <span>插件列表</span>
+              <span>图标列表</span>
+            </nav>
+          </div>
+          <div class={styles.right}>
+            <el-button>保存</el-button>
+            <el-button type="primary">导出</el-button>
+          </div>
+        </header>
+        <div class={styles.main}>
+          <div class={styles.left}>
+            <Codemirror
+              value={md.value}
+              options={cmOptions}
+              placeholder="test placeholder"
+              height="100%"
+              width="100%"
+              onChange={debounce(onChange, 300)}
+            />
+          </div>
+          <div class={styles.right}>
+            <div v-html={html.value} class={styles.renderContent}></div>
+          </div>
+        </div>
       </div>
-    );
+    )
   },
 })

@@ -1,61 +1,67 @@
-import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  NavigationGuardNext,
+  RouteLocationNormalized,
+  RouteRecordRaw,
+} from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home',
   },
   {
     path: '/home',
     name: 'home',
     meta: {
-      type: 'home'
+      type: 'home',
     },
-    component: () => import('../views/home')
+    component: () => import('../views/home'),
   },
   {
     path: '/login',
     name: 'login',
     meta: {
-      type: 'login'
+      type: 'login',
     },
-    component: () => import('../views/login')
+    component: () => import('../views/login'),
   },
   {
     path: '/square',
     name: 'square',
     meta: {
-      type: 'square'
+      type: 'square',
     },
-    component: () => import('../views/square')
+    component: () => import('../views/square'),
   },
   {
     path: '/mine',
     name: 'mine',
     meta: {
-      type: 'mine'
+      type: 'mine',
     },
-    component: () => import('../views/mine')
+    component: () => import('../views/mine'),
   },
   {
     path: '/editor',
     name: 'editor',
     meta: {
-      type: 'editor'
+      type: 'editor',
     },
-    component: () => import('../views/editor')
+    component: () => import('../views/editor'),
   },
   {
     path: '/:pathMatch(.*)*', // 注意此处 404页面匹配规则和以前不相同，得采用这种配置方式才行
     name: '404',
-    component: () => import('../views/404')
-  }
+    component: () => import('../views/404'),
+  },
 ]
 
 // 此处由【new VueRouter】的方式修改为【createRouter】的方式 其余无变化
 const router = createRouter({
   history: createWebHashHistory(), //路由模式的配置采用API调用的方式 不再是之前的字符串 此处采用的hash路由
-  routes
+  routes,
 })
 
 // router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {

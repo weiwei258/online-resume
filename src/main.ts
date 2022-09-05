@@ -4,14 +4,12 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import router from './router'
 import piniaPersist from 'pinia-plugin-persist'
-import './element'
+import ElementUI from './element'
 import 'element-plus/dist/index.css'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 //使用pinia
 const pinia = createPinia()
 pinia.use(piniaPersist)
 
-createApp(App)
-  .use(pinia)
-  .use(router)
-  .mount('#app')
+createApp(App).use(pinia).use(router).use(ElementUI).mount('#app')

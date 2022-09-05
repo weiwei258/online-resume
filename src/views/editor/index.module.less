@@ -1,0 +1,55 @@
+.editor-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.header {
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  .left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    .back-icon {
+      margin-right: 20px;
+    }
+    nav {
+      margin-left: 26px;
+      span {
+        cursor: pointer;
+        display: inline-block;
+        line-height: 60px;
+        color: #333;
+        font-size: 14px;
+        padding: 0 10px;
+        &:hover {
+          background-color: rgba(42, 175, 241, 0.15);
+        }
+      }
+    }
+  }
+}
+.main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  .left {
+    width: 600px;
+  }
+  .right {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    box-sizing: border-box;
+    background-color: #606060;
+    .render-content {
+      padding: 20px 0;
+      width: 794px;
+      margin: 50px auto;
+      background-color: #fff;
+    }
+  }
+}
