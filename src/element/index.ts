@@ -24,7 +24,6 @@ const elementPlus = [
   ElIcon,
 ]
 const icons = [Edit]
-console.log(icons)
 export default {
   install: (app: any) => {
     elementPlus.forEach((component) => {

@@ -5,11 +5,12 @@ import MarkdownItContainer from 'markdown-it-container'
 export const cmOptions = {
   mode: 'markdown', // Language mode
   // theme: 'dracula', // Theme
-  lineNumbers: true, // Show line number
+  lineNumbers: false, // Show line number
   smartIndent: true, // Smart indent
   indentUnit: 4, // The smart indent unit is 2 spaces in length
   foldGutter: true, // Code folding
   matchBrackets: true,
+  theme: 'github-light',
   autoCloseBrackets: true,
   styleActiveLine: true, // Display the style of the selected row
 }

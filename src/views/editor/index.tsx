@@ -1,9 +1,12 @@
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, onMounted } from 'vue'
 import Codemirror from 'codemirror-editor-vue3'
 import { debounce } from 'lodash'
 import markdownIt, { cmOptions } from './markdown'
 import { md as initalMarkDowmStr } from './md'
+import useResizer from '@/hooks/useResizer'
 import styles from './index.module.less'
+import useThemeStore from '@/store/theme'
+import { ThemeStylesOptions } from '@/types'
 
 export default defineComponent({
   props: {
@@ -14,6 +17,9 @@ export default defineComponent({
     const onChange = (val: string) => {
       md.value = val
     }
+    const themeStore = useThemeStore()
+    themeStore.setMarkdownTheme(ThemeStylesOptions.NotionDark)
+    const { clientX: codeEditorWidth, resizerRef } = useResizer()
 
     const html = computed(() => {
       if (md.value) {
@@ -27,7 +33,6 @@ export default defineComponent({
       }
       return ''
     })
-
     const resumeName = ref('')
 
     return () => (
@@ -58,7 +63,9 @@ export default defineComponent({
           </div>
         </header>
         <div class={styles.main}>
-          <div class={styles.left}>
+          <div
+            class={styles.left}
+            style={{ width: codeEditorWidth.value + 'px' }}>
             <Codemirror
               value={md.value}
               options={cmOptions}
@@ -68,8 +75,12 @@ export default defineComponent({
               onChange={debounce(onChange, 300)}
             />
           </div>
+          <div class={styles.resizer} ref={resizerRef}></div>
           <div class={styles.right}>
-            <div v-html={html.value} class={styles.renderContent}></div>
+            <div
+              v-html={html.value}
+              class={styles.renderContent}
+              id="md-content"></div>
           </div>
         </div>
       </div>
