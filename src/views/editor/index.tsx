@@ -1,41 +1,19 @@
-import { defineComponent, ref, computed, onMounted } from 'vue'
-import Codemirror from 'codemirror-editor-vue3'
-import { debounce } from 'lodash'
-import markdownIt, { cmOptions } from './markdown'
-import { md as initalMarkDowmStr } from './md'
-import useResizer from '@/hooks/useResizer'
-import styles from './index.module.less'
-import useThemeStore from '@/store/theme'
-import { ThemeStylesOptions } from '@/types'
-import ThemeSelector from '@/components/ThemeSelector'
+import { defineComponent, ref } from "vue";
+import useResizer from "@/hooks/useResizer";
+import styles from "./index.module.less";
+import useThemeStore from "@/store/theme";
+import { ThemeStylesOptions } from "@/types";
+import ThemeSelector from "@/components/Editor/ThemeSelector";
+import Editor from "@/components/Editor/Editor";
+import View from "@/components/Editor/View";
 
 export default defineComponent({
-  props: {
-    message: String,
-  },
   setup(props) {
-    const md = ref(initalMarkDowmStr)
-    const themeSelectorRef = ref()
-    const onChange = (val: string) => {
-      md.value = val
-    }
-    const themeStore = useThemeStore()
-    themeStore.setMarkdownTheme(ThemeStylesOptions.NotionDark)
-    const { clientX: codeEditorWidth, resizerRef } = useResizer()
-
-    const html = computed(() => {
-      if (md.value) {
-        const token = markdownIt.parse(md.value).map((token) => {
-          return {
-            ...token,
-            attrs: [['theme', 'red-theme']],
-          }
-        })
-        return markdownIt.renderer.render(token)
-      }
-      return ''
-    })
-    const resumeName = ref('')
+    const themeSelectorRef = ref();
+    const themeStore = useThemeStore();
+    themeStore.setMarkdownTheme(ThemeStylesOptions.NotionDark);
+    const { clientX: codeEditorWidth, resizerRef } = useResizer();
+    const resumeName = ref("");
 
     return () => (
       <div class={styles.editorPage}>
@@ -50,7 +28,7 @@ export default defineComponent({
             <el-input
               v-model={resumeName.value}
               placeholder="input resume name"
-              style={{ maxWidth: '200px' }}
+              style={{ maxWidth: "200px" }}
             />
             <nav>
               <span>首页</span>
@@ -70,25 +48,16 @@ export default defineComponent({
         <div class={styles.main}>
           <div
             class={styles.left}
-            style={{ width: codeEditorWidth.value + 'px' }}>
-            <Codemirror
-              value={md.value}
-              options={cmOptions}
-              placeholder="test placeholder"
-              height="100%"
-              width="100%"
-              onChange={debounce(onChange, 300)}
-            />
+            style={{ width: codeEditorWidth.value + "px" }}
+          >
+            <Editor />
           </div>
           <div class={styles.resizer} ref={resizerRef}></div>
           <div class={styles.right}>
-            <div
-              v-html={html.value}
-              class={styles.renderContent}
-              id="md-content"></div>
+            <View class={styles.renderContent} />
           </div>
         </div>
       </div>
-    )
+    );
   },
-})
+});
