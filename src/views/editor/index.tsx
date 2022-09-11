@@ -7,6 +7,7 @@ import useResizer from '@/hooks/useResizer'
 import styles from './index.module.less'
 import useThemeStore from '@/store/theme'
 import { ThemeStylesOptions } from '@/types'
+import ThemeSelector from '@/components/ThemeSelector'
 
 export default defineComponent({
   props: {
@@ -14,6 +15,7 @@ export default defineComponent({
   },
   setup(props) {
     const md = ref(initalMarkDowmStr)
+    const themeSelectorRef = ref()
     const onChange = (val: string) => {
       md.value = val
     }
@@ -37,6 +39,7 @@ export default defineComponent({
 
     return () => (
       <div class={styles.editorPage}>
+        <ThemeSelector ref={themeSelectorRef}></ThemeSelector>
         <header class={styles.header}>
           <div class={styles.left}>
             <div class={styles.backIcon}>
@@ -52,7 +55,9 @@ export default defineComponent({
             <nav>
               <span>首页</span>
               <span>编辑模式</span>
-              <span>选择主题</span>
+              <span onClick={() => themeSelectorRef.value.show()}>
+                选择主题
+              </span>
               <span>插件列表</span>
               <span>图标列表</span>
             </nav>

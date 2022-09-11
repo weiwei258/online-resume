@@ -1,5 +1,5 @@
 export enum ThemeStylesOptions {
-  NotionDark,
-  NotionLight,
-  NotionDarker,
+  NotionDark = 'notion-dark',
+  NotionLight = 'notion-light',
+  NotionDarker = 'notion-darker',
 }
