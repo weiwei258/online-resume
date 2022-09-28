@@ -6,20 +6,19 @@ const THEMESTYLE = {
   [ThemeStylesOptions.NotionDarker]: import('@/assets/styles/notion-dark.less'),
   [ThemeStylesOptions.NotionLight]: import('@/assets/styles/notion-light.less'),
 }
-console.log(THEMESTYLE)
+
 export default defineStore('theme', {
   state: () => ({
     theme: ThemeStylesOptions.NotionDark,
   }),
   actions: {
     setMarkdownTheme(theme: ThemeStylesOptions) {
-      console.log(theme)
       this.theme = theme
       // 插入style
-      const style = useThemeStyle()
-      THEMESTYLE[theme].then((res) => {
-        style.innerHTML = res.default
-      })
+      // const style = useThemeStyle()
+      // THEMESTYLE[theme].then((res) => {
+      //   style.innerHTML = res.default
+      // })
     },
   },
 })

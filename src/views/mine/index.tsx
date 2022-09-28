@@ -30,12 +30,12 @@ export default defineComponent({
             </ElCol>
             <ElCol span={6}>
               <ElSpace size={10}>
-                <RouterLink to='/home'>
+                <RouterLink to='/square'>
                   <ElButton type='primary'>
                     热门模板
                   </ElButton>
                 </RouterLink>
-                <RouterLink to='/home'>
+                <RouterLink to='/mine'>
                   <ElButton type='primary'>
                     我的简历
                   </ElButton>

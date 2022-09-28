@@ -9,6 +9,11 @@ import {
   ElInput,
   ElIcon,
   ElDialog,
+  ElRow,
+  ElCol,
+  ElSpace,
+  ElMenu,
+  ElMenuItem
 } from 'element-plus'
 import { Edit, ArrowLeft } from '@element-plus/icons-vue'
 
@@ -24,6 +29,11 @@ const elementPlus = [
   ArrowLeft,
   ElIcon,
   ElDialog,
+  ElRow,
+  ElCol,
+  ElSpace,
+  ElMenu,
+  ElMenuItem
 ]
 const icons = [Edit]
 export default {

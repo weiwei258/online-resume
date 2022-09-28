@@ -1,11 +1,14 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, ComponentPublicInstance } from "vue";
 import useResizer from "@/hooks/useResizer";
 import styles from "./index.module.less";
 import useThemeStore from "@/store/theme";
 import { ThemeStylesOptions } from "@/types";
 import ThemeSelector from "@/components/Editor/ThemeSelector";
+import { jsPDF } from "jspdf";
+import '../../../public/font-normal.js';
 import Editor from "@/components/Editor/Editor";
 import View from "@/components/Editor/View";
+import { pad } from "lodash";
 
 export default defineComponent({
   setup(props) {
@@ -15,9 +18,23 @@ export default defineComponent({
     const { clientX: codeEditorWidth, resizerRef } = useResizer();
     const resumeName = ref("");
 
+    const viewRef = ref<ComponentPublicInstance>()
+
+    const onClick = () => {
+
+      const pdf = new jsPDF('p', 'pt');
+      if (viewRef.value) {
+        pdf.html(viewRef.value.$el, {
+          callback() {
+            pdf.setFont('font')
+            pdf.save()
+          }
+        })
+      }
+    }
     return () => (
       <div class={styles.editorPage}>
-        <ThemeSelector ref={themeSelectorRef}></ThemeSelector>
+        {/* <ThemeSelector ref={themeSelectorRef}></ThemeSelector> */}
         <header class={styles.header}>
           <div class={styles.left}>
             <div class={styles.backIcon}>
@@ -42,7 +59,7 @@ export default defineComponent({
           </div>
           <div class={styles.right}>
             <el-button>保存</el-button>
-            <el-button type="primary">导出</el-button>
+            <el-button type="primary" onClick={onClick}>导出</el-button>
           </div>
         </header>
         <div class={styles.main}>
@@ -54,7 +71,7 @@ export default defineComponent({
           </div>
           <div class={styles.resizer} ref={resizerRef}></div>
           <div class={styles.right}>
-            <View class={styles.renderContent} />
+            <View class={styles.renderContent} ref={viewRef} />
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       type: 'home',
     },
-    component: () => import('../views/home'),
+    component: () => import('../views/home/index.vue'),
   },
   {
     path: '/login',
@@ -33,7 +33,15 @@ const routes: RouteRecordRaw[] = [
     meta: {
       type: 'square',
     },
-    component: () => import('../views/square'),
+    component: () => import('../views/square/index.vue'),
+  },
+  {
+    path: '/resume-template',
+    name: 'resume-template',
+    meta: {
+      type: 'resume-template',
+    },
+    component: () => import('../views/resume-template/index.vue'),
   },
   {
     path: '/mine',
