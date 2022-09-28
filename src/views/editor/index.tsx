@@ -5,7 +5,7 @@ import useThemeStore from "@/store/theme";
 import { ThemeStylesOptions } from "@/types";
 import ThemeSelector from "@/components/Editor/ThemeSelector";
 import { jsPDF } from "jspdf";
-import '../../../public/font-normal.js';
+// import '/js/msyh-bold.js';
 import Editor from "@/components/Editor/Editor";
 import View from "@/components/Editor/View";
 import { pad } from "lodash";
@@ -22,11 +22,15 @@ export default defineComponent({
 
     const onClick = () => {
 
-      const pdf = new jsPDF('p', 'pt');
+      const pdf = new jsPDF('p','pt');
       if (viewRef.value) {
+        pdf.setFont('msyh');
+        pdf.setFontSize(10);
+        console.log(viewRef.value.$el);
+        
         pdf.html(viewRef.value.$el, {
           callback() {
-            pdf.setFont('font')
+            pdf.setFont('msyh')
             pdf.save()
           }
         })
