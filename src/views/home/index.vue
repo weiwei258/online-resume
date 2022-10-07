@@ -37,6 +37,7 @@
     .title {
       font-size: 20px;
       font-weight: 600;
+      color: #000;
     }
 
     .link {
