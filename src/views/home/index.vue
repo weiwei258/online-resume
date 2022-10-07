@@ -70,7 +70,7 @@
   box-sizing: border-box;
   background-size: cover;
   background-position: center center;
-  background-image: url(./img/Dusty-blue.jpeg);
+  background-image: url(./img/blue.jpeg);
 
   .main--header {
     margin:270px 0 0 10%;
