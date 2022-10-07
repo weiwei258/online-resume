@@ -49,7 +49,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       type: 'mine',
     },
-    component: () => import('../views/mine'),
+    component: () => import('../views/mine/index.vue'),
   },
   {
     path: '/editor',

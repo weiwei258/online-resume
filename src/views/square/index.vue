@@ -4,7 +4,9 @@
       <el-row class="row" align="middle" justify="space-between">
         <el-col :span="21">
           <el-space :size="30">
-            <div class="title">在线简历</div>
+            <router-link to="/" class="title">
+              <div>在线简历</div>
+            </router-link>
             <el-menu class="menu" mode="horizontal" router>
               <el-menu-item index="/square">热门模板</el-menu-item>
               <el-menu-item index="/mine">我的简历</el-menu-item>
@@ -51,6 +53,7 @@
       font-size: 24px;
       vertical-align: middle;
       display: inline-block;
+      color:#000;
     }
     .menu {
       width: 300px;

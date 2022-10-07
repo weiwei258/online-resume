@@ -1,14 +1,13 @@
-import { defineComponent, ref, ComponentPublicInstance } from "vue";
+import { defineComponent, ref } from "vue";
+import { useRouter } from 'vue-router'
+import { jsPDF } from "jspdf";
 import useResizer from "@/hooks/useResizer";
 import styles from "./index.module.less";
 import useThemeStore from "@/store/theme";
 import { ThemeStylesOptions } from "@/types";
 import ThemeSelector from "@/components/Editor/ThemeSelector";
-import { jsPDF } from "jspdf";
-// import '/js/msyh-bold.js';
 import Editor from "@/components/Editor/Editor";
 import View from "@/components/Editor/View";
-import { pad } from "lodash";
 
 export default defineComponent({
   setup(props) {
@@ -18,17 +17,16 @@ export default defineComponent({
     const { clientX: codeEditorWidth, resizerRef } = useResizer();
     const resumeName = ref("");
 
-    const viewRef = ref<ComponentPublicInstance>()
+    const viewRef = ref<HTMLDivElement>()
 
     const onClick = () => {
 
-      const pdf = new jsPDF('p','pt');
+      const pdf = new jsPDF('p', 'pt');
       if (viewRef.value) {
         pdf.setFont('msyh');
-        pdf.setFontSize(10);
-        console.log(viewRef.value.$el);
-        
-        pdf.html(viewRef.value.$el, {
+        // pdf.setFontSize(12);
+
+        pdf.html(viewRef.value, {
           callback() {
             pdf.setFont('msyh')
             pdf.save()
@@ -36,12 +34,17 @@ export default defineComponent({
         })
       }
     }
+
+   const router = useRouter()
+    const backClick = () => {
+      router.back()
+    }
     return () => (
       <div class={styles.editorPage}>
         {/* <ThemeSelector ref={themeSelectorRef}></ThemeSelector> */}
         <header class={styles.header}>
           <div class={styles.left}>
-            <div class={styles.backIcon}>
+            <div class={styles.backIcon} onClick={backClick}>
               <el-icon>
                 <arrow-left />
               </el-icon>
@@ -74,8 +77,11 @@ export default defineComponent({
             <Editor />
           </div>
           <div class={styles.resizer} ref={resizerRef}></div>
+
           <div class={styles.right}>
-            <View class={styles.renderContent} ref={viewRef} />
+            <div ref={viewRef}>
+              <View class={styles.renderContent} />
+            </div>
           </div>
         </div>
       </div>
