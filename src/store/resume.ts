@@ -3,15 +3,17 @@ import { computed, ref } from "vue";
 import markdownIt from "@/utils/markdown";
 import { md as defaultMd } from './md'
 
+
 const useResumeStore = defineStore("resume", () => {
   const md = ref(defaultMd);
+
   const html = computed(() => {
     if (md.value) {
       // @ts-ignore
       const token = markdownIt.parse(md.value).map((token) => {
         return {
           ...token,
-          attrs: [["theme"]],
+          attrs: [["theme",'red']],
         };
       });
       // @ts-ignore

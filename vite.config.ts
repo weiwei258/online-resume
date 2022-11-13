@@ -47,7 +47,7 @@ export default ({ mode }) =>
     base:
       mode === 'development'
         ? '/'
-        : '/online-resume', //此时把环境打包路径也配置好，避免生产环境打包出现白屏
+        : '/', //此时把环境打包路径也配置好，避免生产环境打包出现白屏
     server: {
       port: 8888,
     },
