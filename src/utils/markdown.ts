@@ -16,6 +16,7 @@ export const cmOptions = {
 }
 
 const markdownIt = new MarkdownIt()
+
 markdownIt
   .use(MarkdownItContainer, 'left', {
     validate: function (params: any) {
@@ -23,7 +24,7 @@ markdownIt
     },
     render: function (tokens: any, idx: any) {
       if (tokens[idx].nesting === 1) {
-        return '<div class="left">'
+        return '<div> <div class="left">'
       } else {
         return '</div>\n'
       }
@@ -37,7 +38,7 @@ markdownIt
       if (tokens[idx].nesting === 1) {
         return '<div class="right">'
       } else {
-        return '</div>\n'
+        return '</div></div>\n'
       }
     },
   })
