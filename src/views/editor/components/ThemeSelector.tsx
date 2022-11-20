@@ -27,8 +27,6 @@ const ThemeSelector = defineComponent({
     const { onChangeStyleTheme } = props
     const dialogVisible = ref(false);
 
-
-
     expose({
       show: () => {
         dialogVisible.value = true;

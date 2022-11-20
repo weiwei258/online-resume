@@ -24,7 +24,7 @@ markdownIt
     },
     render: function (tokens: any, idx: any) {
       if (tokens[idx].nesting === 1) {
-        return '<div> <div class="left">'
+        return '<div class="markdownit-plugin-container"> <div class="markdownit-plugin-left">'
       } else {
         return '</div>\n'
       }
@@ -36,7 +36,7 @@ markdownIt
     },
     render: function (tokens: any, idx: any) {
       if (tokens[idx].nesting === 1) {
-        return '<div class="right">'
+        return '<div class="markdownit-plugin-right">'
       } else {
         return '</div></div>\n'
       }

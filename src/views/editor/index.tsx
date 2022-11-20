@@ -12,10 +12,10 @@ export default defineComponent({
     const { clientX: codeEditorWidth, resizerRef } = useResizer();
 
     const mdRef = ref(md)
-    const htmlRef = ref(transformHtmlFunc(md, { theme: 'red' }))
+    const htmlRef = ref(transformHtmlFunc(md, { theme: 'blue' }))
     const onChange = (mdStr: string) => {
       mdRef.value = mdStr
-      htmlRef.value = transformHtmlFunc(mdStr, { theme: 'red' })
+      htmlRef.value = transformHtmlFunc(mdStr, { theme: 'blue' })
     }
 
     const htmlRenderRef = ref<HTMLRenderExposed>();
@@ -23,11 +23,10 @@ export default defineComponent({
       htmlRenderRef.value?.exportPDF()
     }
 
-    const styleThemeRef = ref<ThemeStylesOptions>()
+    const styleThemeRef = ref<ThemeStylesOptions>('blue' as ThemeStylesOptions)
     const onChangeStyleTheme = (themeStyle: ThemeStylesOptions) => {
       styleThemeRef.value = themeStyle
       htmlRef.value = transformHtmlFunc(mdRef.value, { theme: themeStyle })
-      console.log('themeStyle', themeStyle)
     }
 
     return () => (

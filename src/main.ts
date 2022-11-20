@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './main.less'
+import './theme/index.less'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import router from './router'
@@ -12,4 +13,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const pinia = createPinia()
 pinia.use(piniaPersist)
 
-createApp(App).use(pinia).use(router).use(ElementUI).mount('#app')
+createApp(App)
+  .use(pinia)
+  .use(router)
+  .use(ElementUI)
+  .mount('#app')
