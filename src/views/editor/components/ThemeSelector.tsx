@@ -66,7 +66,7 @@ const ThemeSelector = defineComponent({
           default: () => {
             return (
               <div class={styles.themeList}>
-                {(Object.keys(ThemeStylesOptions) as (ThemeStylesOptions)[]).map(
+                {(Object.keys(ThemeStylesOptions) as (keyof typeof ThemeStylesOptions)[]).map(
                   (key) => {
                     const themeStyle = ThemeStylesOptions[key] as ThemeStylesOptions
                     return (

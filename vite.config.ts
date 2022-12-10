@@ -53,7 +53,7 @@ export default ({ mode }) =>
       port: 8888,
     },
     build: {
-      outDir: 'docs',
+     
     },
     resolve: {
       alias: {

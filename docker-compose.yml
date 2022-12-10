@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  app:
+    build: ./
+    ports:
+      - 80:8080
+    volumes:
+      - ./:/app
+    environment:
+      - TZ=Asia/Shanghai
