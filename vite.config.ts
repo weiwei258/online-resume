@@ -10,6 +10,7 @@ import {
   ElementPlusResolve,
 } from 'vite-plugin-style-import'
 
+// test 
 // https://vitejs.dev/config/
 export default ({ mode }) =>
   defineConfig({
